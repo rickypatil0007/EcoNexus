@@ -33,7 +33,7 @@ const journeySteps = [
 
 export function Journey() {
   return (
-    <section className="relative py-32 bg-eco-bg-secondary">
+    <section id="about" className="relative py-32 bg-eco-bg-secondary">
       <div className="container-eco">
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-24">
           <motion.h2 

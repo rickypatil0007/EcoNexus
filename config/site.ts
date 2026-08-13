@@ -21,9 +21,9 @@ export const SITE_CONFIG = {
  * Navigation links for the marketing header.
  */
 export const NAV_LINKS = [
-  { label: "Features", href: "/features" },
-  { label: "About", href: "/about" },
-  { label: "Pricing", href: "/pricing" },
+  { label: "Features", href: "#features" },
+  { label: "About", href: "#about" },
+  { label: "Pricing", href: "#pricing" },
 ] as const;
 
 /**

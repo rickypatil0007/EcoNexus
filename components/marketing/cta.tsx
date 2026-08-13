@@ -8,7 +8,7 @@ import { EarthCanvas } from "@/components/canvas/earth";
 
 export function CTA() {
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-eco-bg-primary">
+    <section id="pricing" className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-eco-bg-primary">
       {/* Background Earth Canvas for visual connection to Hero */}
       <div className="absolute inset-0 opacity-40 mix-blend-screen pointer-events-none">
         <EarthCanvas />

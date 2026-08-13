@@ -11,6 +11,7 @@ const features = [
     description: "Personalized sustainability guidance based on your habits and goals.",
     metric: "18kg CO₂ saved/mo",
     color: "#2ED47A",
+    moreInfo: "Get 24/7 access to actionable tips, recipe substitutions, and personalized commute route optimization based on real-time data.",
   },
   {
     icon: Activity,
@@ -18,6 +19,7 @@ const features = [
     description: "Detailed analysis of your environmental impact across all lifestyle categories.",
     metric: "Real-time tracking",
     color: "#4FA9FF",
+    moreInfo: "Powered by Climatiq API, this tool analyzes your travel, diet, and energy usage to calculate your exact carbon equivalent emissions.",
   },
   {
     icon: Globe,
@@ -25,6 +27,7 @@ const features = [
     description: "Visualize global sustainability data through an immersive 3D experience.",
     metric: "Global overview",
     color: "#69E5FF",
+    moreInfo: "Watch your virtual EcoForest grow dynamically. Every sustainable action you log plants new procedurally-generated trees and wildlife.",
   },
   {
     icon: Trophy,
@@ -32,6 +35,7 @@ const features = [
     description: "Join local and global initiatives to multiply your environmental impact.",
     metric: "10k+ active users",
     color: "#FFD54A",
+    moreInfo: "Compete with friends or collaborate with global users in weekly eco-challenges. Earn badges and climb the public leaderboards.",
   },
   {
     icon: Building2,
@@ -39,6 +43,7 @@ const features = [
     description: "Tools for businesses and universities to track collective CSR achievements.",
     metric: "Enterprise ready",
     color: "#FF9D42",
+    moreInfo: "Export ESG compliance reports in one click. Set org-wide reduction goals and track cumulative member contributions automatically.",
   },
   {
     icon: Star,
@@ -46,6 +51,7 @@ const features = [
     description: "Earn points for sustainable actions and redeem them for eco-friendly perks.",
     metric: "Green Points",
     color: "#2ED47A",
+    moreInfo: "Convert your saved carbon emissions into Green Points. Redeem them for discounts at our partner eco-conscious brands and sustainable stores.",
   }
 ];
 
@@ -132,15 +138,20 @@ export function Features() {
                     {feature.description}
                   </p>
                   
-                  <div className="mt-6 pt-6 border-t border-white/10 flex items-center gap-2 text-[13px] font-medium text-white/50 group-hover:text-white transition-colors">
-                    <span>Learn more</span>
-                    <motion.span
-                      className="inline-block"
-                      initial={{ x: 0 }}
-                      whileHover={{ x: 5 }}
-                    >
-                      <ArrowRight size={14} />
-                    </motion.span>
+                  <div className="mt-6 pt-6 border-t border-white/10 flex flex-col gap-3 text-[13px] font-medium text-white/50 group-hover:text-white transition-colors">
+                    <p className="text-eco-text-muted leading-relaxed opacity-0 max-h-0 overflow-hidden group-hover:opacity-100 group-hover:max-h-40 transition-all duration-500 ease-in-out">
+                      {feature.moreInfo}
+                    </p>
+                    <div className="flex items-center gap-2 mt-auto">
+                      <span className="text-eco-green group-hover:text-white transition-colors">Learn more</span>
+                      <motion.span
+                        className="inline-block text-eco-green group-hover:text-white transition-colors"
+                        initial={{ x: 0 }}
+                        whileHover={{ x: 5 }}
+                      >
+                        <ArrowRight size={14} />
+                      </motion.span>
+                    </div>
                   </div>
                 </GlassCard>
               </motion.div>
