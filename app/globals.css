@@ -1,0 +1,442 @@
+/**
+ * EcoNexus Global Stylesheet
+ *
+ * Tailwind CSS v4 uses CSS-native @theme directive — no tailwind.config.ts required.
+ * All EcoNexus design tokens are defined here as CSS custom properties.
+ *
+ * Reference: 04-design.md
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   ECONEXUS DESIGN TOKENS — @theme (Tailwind v4 native)
+   These are available as Tailwind utilities: bg-eco-primary, text-eco-green, etc.
+───────────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* ── Fonts ── */
+  --font-sans:    "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+  --font-body:    "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono:    "JetBrains Mono", "Fira Code", monospace;
+
+  /* ── Background Colors ── */
+  --color-eco-bg-primary:   #05070A;
+  --color-eco-bg-secondary: #0D1117;
+  --color-eco-bg-surface:   #141A22;
+  --color-eco-bg-elevated:  #1C2530;
+
+  /* ── Glass Surface ── */
+  --color-eco-glass:        rgba(255, 255, 255, 0.08);
+  --color-eco-glass-border: rgba(255, 255, 255, 0.12);
+  --color-eco-glass-hover:  rgba(255, 255, 255, 0.12);
+
+  /* ── Text Colors ── */
+  --color-eco-text-primary:   #FFFFFF;
+  --color-eco-text-secondary: #B7BDC6;
+  --color-eco-text-muted:     #7C8794;
+  --color-eco-text-disabled:  #4A5568;
+
+  /* ── Accent Colors ── */
+  --color-eco-green:   #2ED47A;
+  --color-eco-blue:    #4FA9FF;
+  --color-eco-cyan:    #69E5FF;
+  --color-eco-yellow:  #FFD54A;
+  --color-eco-orange:  #FF9D42;
+  --color-eco-red:     #FF5D73;
+  --color-eco-emerald: #3AE374;
+
+  /* ── Semantic Colors ── */
+  --color-eco-success: #3AE374;
+  --color-eco-warning: #FFD54A;
+  --color-eco-error:   #FF5D73;
+  --color-eco-info:    #4FA9FF;
+
+  /* ── Border Radius (Apple-inspired) ── */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   20px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+
+  /* ── Spacing (8-point system — design.md) ── */
+  --spacing-1:  4px;
+  --spacing-2:  8px;
+  --spacing-3:  12px;
+  --spacing-4:  16px;
+  --spacing-5:  20px;
+  --spacing-6:  24px;
+  --spacing-8:  32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  --spacing-32: 128px;
+
+  /* ── Typography Scale (design.md) ── */
+  --text-hero:      72px;
+  --text-section:   56px;
+  --text-page:      40px;
+  --text-dashboard: 32px;
+  --text-heading:   24px;
+  --text-card:      20px;
+  --text-body-lg:   18px;
+  --text-body:      16px;
+  --text-sm:        14px;
+  --text-caption:   12px;
+
+  /* ── Animation / Timing ── */
+  --ease-smooth:  cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:     cubic-bezier(0, 0, 0.2, 1);
+  --duration-fast:   150ms;
+  --duration-base:   250ms;
+  --duration-slow:   400ms;
+  --duration-slower: 600ms;
+
+  /* ── Shadows / Glow ── */
+  --shadow-glass: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+  --shadow-card:  0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-green: 0 0 24px rgba(46, 212, 122, 0.25);
+  --shadow-blue:  0 0 24px rgba(79, 169, 255, 0.25);
+  --shadow-glow:  0 0 40px rgba(46, 212, 122, 0.15);
+
+  /* ── Z-Index Scale ── */
+  --z-below:   -1;
+  --z-base:     0;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-toast:    500;
+  --z-top:      999;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CSS CUSTOM PROPERTIES (runtime, for shadcn/ui compatibility)
+───────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* shadcn/ui token mapping → EcoNexus dark theme */
+  --background:   5 7 10;         /* #05070A */
+  --foreground:   255 255 255;    /* #FFFFFF */
+  --card:         20 26 34;       /* #141A22 */
+  --card-foreground: 255 255 255;
+  --popover:      20 26 34;
+  --popover-foreground: 255 255 255;
+  --primary:      46 212 122;     /* #2ED47A eco-green */
+  --primary-foreground: 5 7 10;
+  --secondary:    28 37 48;       /* #1C2530 */
+  --secondary-foreground: 183 189 198;
+  --muted:        20 26 34;
+  --muted-foreground: 124 135 148;
+  --accent:       79 169 255;     /* #4FA9FF ocean-blue */
+  --accent-foreground: 5 7 10;
+  --destructive:  255 93 115;     /* #FF5D73 */
+  --destructive-foreground: 255 255 255;
+  --border:       255 255 255 / 0.12;
+  --input:        255 255 255 / 0.08;
+  --ring:         46 212 122;
+  --radius: 16px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   BASE STYLES
+───────────────────────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+/* ── Sharp Icons Override ── */
+svg {
+  stroke-linecap: square !important;
+  stroke-linejoin: miter !important;
+}
+
+body {
+  background-color: #05070A;
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  min-height: 100dvh;
+  /* Prevent layout shift from scrollbar appearance */
+  scrollbar-gutter: stable;
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D1117;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Heading Font ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-feature-settings: "kern" 1;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+h3 {
+  font-weight: 600;
+}
+
+h4, h5, h6 {
+  font-weight: 600;
+}
+
+/* ── Paragraph Font ── */
+p {
+  font-family: var(--font-sans);
+  font-weight: 400;
+}
+
+/* ── Navigation Font ── */
+nav, .navbar {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ── Button Font ── */
+button, .btn {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ── Input Font ── */
+input,
+textarea,
+select {
+  font-family: var(--font-sans);
+}
+
+/* ── Focus Styles (accessibility) ── */
+:focus-visible {
+  outline: 2px solid #2ED47A;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Selection ── */
+::selection {
+  background: rgba(46, 212, 122, 0.25);
+  color: #FFFFFF;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   UTILITY CLASSES — Glassmorphism
+───────────────────────────────────────────────────────────────────────────── */
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: 20px;
+}
+
+.glass-hover {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: 20px;
+  transition: background 300ms ease, border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(20, 26, 34, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-radius: 20px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.05);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   UTILITY CLASSES — Gradients
+───────────────────────────────────────────────────────────────────────────── */
+
+.gradient-earth-glow {
+  background: linear-gradient(135deg, #2ED47A, #4FA9FF);
+}
+
+.gradient-aurora {
+  background: linear-gradient(135deg, #69E5FF, #3AE374);
+}
+
+.gradient-solar {
+  background: linear-gradient(135deg, #FFD54A, #FF9D42);
+}
+
+.gradient-night {
+  background: linear-gradient(180deg, #0D1117, #05070A);
+}
+
+/* ── Text Gradient Utility ── */
+.text-gradient-eco {
+  background: linear-gradient(135deg, #2ED47A, #4FA9FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-aurora {
+  background: linear-gradient(135deg, #69E5FF, #3AE374);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   UTILITY CLASSES — Glow Effects
+───────────────────────────────────────────────────────────────────────────── */
+
+.glow-green {
+  box-shadow: 0 0 24px rgba(46, 212, 122, 0.30);
+}
+
+.glow-blue {
+  box-shadow: 0 0 24px rgba(79, 169, 255, 0.30);
+}
+
+.glow-soft {
+  box-shadow: 0 0 40px rgba(46, 212, 122, 0.12);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   UTILITY CLASSES — Animations
+───────────────────────────────────────────────────────────────────────────── */
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(46, 212, 122, 0.2); }
+  50%       { box-shadow: 0 0 40px rgba(46, 212, 122, 0.4); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.animate-fade-in      { animation: fade-in      400ms ease both; }
+.animate-fade-in-up   { animation: fade-in-up   500ms ease both; }
+.animate-scale-in     { animation: scale-in     300ms ease both; }
+.animate-pulse-glow   { animation: pulse-glow   2s ease-in-out infinite; }
+.animate-spin-slow    { animation: spin-slow    8s linear infinite; }
+
+/* ── Reduced Motion (accessibility — design.md) ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   LAYOUT UTILITIES
+───────────────────────────────────────────────────────────────────────────── */
+
+.container-eco {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+@media (min-width: 640px) {
+  .container-eco { padding-inline: 32px; }
+}
+
+@media (min-width: 1024px) {
+  .container-eco { padding-inline: 48px; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   SECTION UTILITIES
+───────────────────────────────────────────────────────────────────────────── */
+
+.section-padding {
+  padding-block: 80px;
+}
+
+@media (min-width: 1024px) {
+  .section-padding { padding-block: 128px; }
+}
