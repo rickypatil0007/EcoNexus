@@ -186,9 +186,7 @@ export async function POST(req: Request) {
       },
     });
 
-    return result.toUIMessageStreamResponse({
-      getErrorMessage: formatStreamError,
-    });
+    return result.toDataStreamResponse();
   } catch (error) {
     console.error("REAL ECO COACH ERROR:", error);
     console.error({
