@@ -26,21 +26,25 @@ export default async function DashboardPage() {
   // Fetch user for greeting
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  const { data: profile }  = user
-    ? await (supabase as any).from("profiles").select("*").eq("user_id", user.id).single()
-    : { data: null };
 
-  const { data: carbonRecord } = user
-    ? await (supabase as any).from("carbon_records").select("*").eq("user_id", user.id).order("assessment_date", { ascending: false }).limit(1).single()
-    : { data: null };
+  let profile = null;
+  let carbonRecord = null;
+  let userChallenges = null;
+  let activities: any[] = [];
 
-  const { data: userChallenges } = user
-    ? await (supabase as any).from("user_challenges").select("*, challenges(*)").eq("user_id", user.id).eq("status", "active").limit(3)
-    : { data: null };
-
-  const { data: activities } = user
-    ? await (supabase as any).from("activities").select("*").eq("user_id", user.id).order("created_at", { ascending: false }).limit(5)
-    : { data: [] };
+  if (user) {
+    const [profileRes, carbonRecordRes, userChallengesRes, activitiesRes] = await Promise.all([
+      (supabase as any).from("profiles").select("*").eq("user_id", user.id).single(),
+      (supabase as any).from("carbon_records").select("*").eq("user_id", user.id).order("assessment_date", { ascending: false }).limit(1).single(),
+      (supabase as any).from("user_challenges").select("*, challenges(*)").eq("user_id", user.id).eq("status", "active").limit(3),
+      (supabase as any).from("activities").select("*").eq("user_id", user.id).order("created_at", { ascending: false }).limit(5)
+    ]);
+    
+    profile = profileRes.data;
+    carbonRecord = carbonRecordRes.data;
+    userChallenges = userChallengesRes.data;
+    activities = activitiesRes.data || [];
+  }
 
   const firstName = (profile as any)?.display_name?.split(" ")[0]
     ?? user?.email?.split("@")[0]
