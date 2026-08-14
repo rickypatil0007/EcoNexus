@@ -150,19 +150,28 @@ export function NewChatbot({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 className={`flex gap-4 ${isUser ? "flex-row-reverse" : ""}`}
               >
-                <div
+                <motion.div
                   className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full mt-auto shadow-lg ${
                     isUser
                       ? "bg-gradient-to-tr from-[#1E293B] to-[#334155] border border-white/10"
                       : "bg-gradient-to-tr from-[#2ED47A] to-[#4FA9FF]"
                   }`}
+                  animate={!isUser && isLoading && message.id === messages[messages.length - 1]?.id ? {
+                    boxShadow: ["0 0 0px rgba(46,212,122,0)", "0 0 15px rgba(46,212,122,0.6)", "0 0 0px rgba(46,212,122,0)"]
+                  } : {}}
+                  transition={{ repeat: Infinity, duration: 2 }}
                 >
                   {isUser ? (
                     <User size={18} className="text-white/80" />
                   ) : (
-                    <Sparkles size={18} className="text-white" />
+                    <motion.div
+                      animate={isLoading && message.id === messages[messages.length - 1]?.id ? { rotate: [0, 15, -15, 0] } : {}}
+                      transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                    >
+                      <Sparkles size={18} className="text-white" />
+                    </motion.div>
                   )}
-                </div>
+                </motion.div>
 
                 <div
                   className={`max-w-[85%] sm:max-w-[75%] px-5 py-4 text-[15px] shadow-sm leading-relaxed ${
@@ -171,7 +180,10 @@ export function NewChatbot({
                       : "bg-white/5 text-gray-200 border border-white/10 rounded-2xl rounded-bl-sm backdrop-blur-sm"
                   }`}
                 >
-                  <div
+                  <motion.div
+                    initial={isUser ? { opacity: 0, x: 10 } : { opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
                     className="prose prose-invert max-w-none prose-p:leading-relaxed prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10"
                     dangerouslySetInnerHTML={{
                       __html: text
